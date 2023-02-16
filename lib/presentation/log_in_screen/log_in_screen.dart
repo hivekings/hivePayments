@@ -118,6 +118,7 @@ class LogInScreen extends GetWidget<LogInController> {
                   ),
                 ),
                 CustomButton(
+                  onTap: () => {Get.toNamed(AppRoutes.homeScreen)},
                   height: 40,
                   width: 312,
                   text: "msg_connect_with_keychain".tr,

@@ -1,5 +1,5 @@
 name: hive_payments
-description: A new Flutter project.
+description: Hive payments created by chocolatoso for hivekings
 version: 1.0.0+1
 environment: 
   sdk: '>=2.12.0 <3.0.0'

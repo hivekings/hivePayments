@@ -8,7 +8,7 @@ class HomeController extends GetxController {
   void onReady() {
     super.onReady();
     Future.delayed(const Duration(milliseconds: 3000), () {
-      Get.toNamed(AppRoutes.splashScreen);
+      
     });
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_payments/core/app_export.dart';
 
+// ignore: must_be_immutable
 class CustomButton extends StatelessWidget {
   CustomButton(
       {this.shape,
@@ -129,7 +130,6 @@ class CustomButton extends StatelessWidget {
         );
       default:
         return null;
-        ;
     }
   }
 

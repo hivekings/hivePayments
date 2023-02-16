@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_payments/core/app_export.dart';
 
+// ignore: must_be_immutable
 class CustomIconButton extends StatelessWidget {
   CustomIconButton(
       {this.shape,
