@@ -1,1 +1,5 @@
-class PaymentModel {}
+class PaymentModel {
+  String? result;
+
+  PaymentModel({String? result});
+}

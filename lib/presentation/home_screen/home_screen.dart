@@ -103,6 +103,10 @@ class HomeScreen extends GetWidget<HomeController> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               CustomImageView(
+                                                  onTap: () => {
+                                                        Get.toNamed(AppRoutes
+                                                            .transferScreen)
+                                                      },
                                                   svgPath: ImageConstant
                                                       .imgArrowright,
                                                   height: getSize(24.00),
@@ -137,6 +141,10 @@ class HomeScreen extends GetWidget<HomeController> {
                                                     .circleBorder20),
                                         child: Row(children: [
                                           CustomImageView(
+                                              onTap: () => {
+                                                    Get.toNamed(
+                                                        AppRoutes.paymentScreen)
+                                                  },
                                               svgPath:
                                                   ImageConstant.imgCalculator,
                                               height: getSize(24.00),
@@ -172,6 +180,10 @@ class HomeScreen extends GetWidget<HomeController> {
                                                 MainAxisAlignment.center,
                                             children: [
                                               CustomImageView(
+                                                  onTap: () => {
+                                                        Get.toNamed(AppRoutes
+                                                            .qrRequestScreen)
+                                                      },
                                                   svgPath:
                                                       ImageConstant.imgQrcode,
                                                   height: getSize(24.00),
@@ -210,6 +222,8 @@ class HomeScreen extends GetWidget<HomeController> {
                                                 style:
                                                     AppStyle.txtInterMedium14)),
                                         CustomImageView(
+                                            onTap: () =>
+                                                {controller.loadMore()},
                                             svgPath:
                                                 ImageConstant.imgOverflowmenu,
                                             height: getSize(20.00),
@@ -217,7 +231,7 @@ class HomeScreen extends GetWidget<HomeController> {
                                       ])),
                               Padding(
                                   padding:
-                                      getPadding(left: 2, top: 18, right: 24),
+                                      getPadding(left: 2, top: 0, right: 24),
                                   child: Obx(() => ListView.separated(
                                       physics: NeverScrollableScrollPhysics(),
                                       shrinkWrap: true,
@@ -231,7 +245,23 @@ class HomeScreen extends GetWidget<HomeController> {
                                         ListellipsenineItemModel model =
                                             controller.homeModelObj.value
                                                 .listellipsenineItemList[index];
-                                        return ListellipsenineItemWidget(model);
+
+                                        var tx = {"transaction": model};
+                                        var activeU = {
+                                          "activeUsername": controller
+                                              .homeModelObj.value.username
+                                        };
+                                        return GestureDetector(
+                                          child:
+                                              ListellipsenineItemWidget(model),
+                                          onTap: () => {
+                                            Get.toNamed(
+                                              AppRoutes.receiptScreen,
+                                              arguments: tx,
+                                              parameters: activeU,
+                                            )
+                                          },
+                                        );
                                       })))
                             ]))))));
   }

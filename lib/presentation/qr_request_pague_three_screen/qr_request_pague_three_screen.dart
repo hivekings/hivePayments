@@ -6,6 +6,7 @@ import 'package:hive_payments/core/app_export.dart';
 import 'package:hive_payments/widgets/app_bar/appbar_image.dart';
 import 'package:hive_payments/widgets/app_bar/appbar_title.dart';
 import 'package:hive_payments/widgets/app_bar/custom_app_bar.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class QrRequestPagueThreeScreen
     extends GetWidget<QrRequestPagueThreeController> {
@@ -138,11 +139,18 @@ class QrRequestPagueThreeScreen
                                           borderRadius: BorderRadiusStyle
                                               .roundedBorder12),
                                   child: Stack(children: [
-                                    CustomImageView(
-                                        svgPath: ImageConstant.imgQrcode2,
-                                        height: getSize(181.00),
-                                        width: getSize(181.00),
-                                        alignment: Alignment.center)
+                                    Obx(() => QrImage(
+                                        data: controller.qr.value,
+                                        size: 181,
+                                        // You can include embeddedImageStyle Property if you
+                                        //wanna embed an image from your Asset folder
+                                        embeddedImageStyle:
+                                            QrEmbeddedImageStyle(
+                                          size: const Size(
+                                            181,
+                                            181,
+                                          ),
+                                        )))
                                   ])))),
                       Padding(
                           padding: getPadding(top: 48, bottom: 5),

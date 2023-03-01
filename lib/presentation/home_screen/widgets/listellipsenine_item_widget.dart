@@ -35,6 +35,7 @@ class ListellipsenineItemWidget extends StatelessWidget {
             child: Row(
               children: [
                 CustomImageView(
+                  url: "${getImage()}",
                   imagePath: ImageConstant.imgEllipse9,
                   height: getSize(
                     36.00,
@@ -107,7 +108,7 @@ class ListellipsenineItemWidget extends StatelessWidget {
                           top: 3,
                         ),
                         child: Text(
-                          "msg_confirmations_14_15".tr,
+                          "${listellipsenineItemModelObj.getTimestamp}",
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
                           style: AppStyle.txtRobotoRomanMedium9,
@@ -126,7 +127,7 @@ class ListellipsenineItemWidget extends StatelessWidget {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "lbl".tr,
+                          text: moreOrless(),
                           style: TextStyle(
                             color: ColorConstant.orange700,
                             fontSize: getFontSize(
@@ -148,9 +149,9 @@ class ListellipsenineItemWidget extends StatelessWidget {
                           ),
                         ),
                         TextSpan(
-                          text: "lbl_500_hive".tr,
+                          text: "${listellipsenineItemModelObj.amount}",
                           style: TextStyle(
-                            color: ColorConstant.orange700,
+                            color: getColor(),
                             fontSize: getFontSize(
                               12,
                             ),
@@ -164,7 +165,7 @@ class ListellipsenineItemWidget extends StatelessWidget {
                   ),
                 ),
                 CustomImageView(
-                  svgPath: ImageConstant.imgClock,
+                  svgPath: ImageConstant.imgCheckmark,
                   height: getSize(
                     20.00,
                   ),
@@ -197,5 +198,34 @@ class ListellipsenineItemWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  getImage() {
+    var uname = listellipsenineItemModelObj.from;
+
+    if (controller.homeModelObj.value.username ==
+        listellipsenineItemModelObj.from) {
+      uname = listellipsenineItemModelObj.to;
+    }
+    var image = "https://images.hive.blog/u/$uname/avatar";
+    return image;
+  }
+
+  getColor() {
+    if (controller.homeModelObj.value.username ==
+        listellipsenineItemModelObj.from) {
+      return ColorConstant.redA400;
+    } else {
+      return ColorConstant.green;
+    }
+  }
+
+  moreOrless() {
+    if (controller.homeModelObj.value.username ==
+        listellipsenineItemModelObj.from) {
+      return "-";
+    } else {
+      return "+";
+    }
   }
 }

@@ -8,6 +8,7 @@ import 'package:hive_payments/widgets/app_bar/appbar_title.dart';
 import 'package:hive_payments/widgets/app_bar/custom_app_bar.dart';
 import 'package:hive_payments/widgets/custom_button.dart';
 
+// ignore: must_be_immutable
 class QrRequestScreen extends GetWidget<QrRequestController> {
   @override
   Widget build(BuildContext context) {
@@ -111,18 +112,29 @@ class QrRequestScreen extends GetWidget<QrRequestController> {
                                     textAlign: TextAlign.left,
                                     style: AppStyle
                                         .txtRobotoRomanMedium16Gray500)),
-                            Padding(
-                                padding: getPadding(left: 11, bottom: 1),
-                                child: Text("lbl_hive2".tr,
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left,
-                                    style: AppStyle
-                                        .txtRobotoRomanMedium16RedA400)),
-                            CustomImageView(
-                                svgPath: ImageConstant.imgArrowdown,
-                                height: getSize(16.00),
-                                width: getSize(16.00),
-                                margin: getMargin(left: 7, top: 2, bottom: 2))
+                            DropdownButton(
+                                value:
+                                    "${controller.qrRequestModelObj.value.currency}",
+                                selectedItemBuilder: (BuildContext context) {
+                                  //<-- SEE HERE
+                                  return controller.listaCurrency
+                                      .map((String value) {
+                                    return Text(
+                                        "${controller.qrRequestModelObj.value.currency}",
+                                        style:
+                                            AppStyle.txtRobotoRomanMedium32RED);
+                                  }).toList();
+                                },
+                                style: const TextStyle(color: Colors.red),
+                                items: controller.listaCurrency
+                                    .map<DropdownMenuItem<String>>(
+                                        (String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                                onChanged: controller.setSelection),
                           ])),
                       Align(
                           alignment: Alignment.center,
@@ -141,11 +153,12 @@ class QrRequestScreen extends GetWidget<QrRequestController> {
                                                 .txtRobotoRomanMedium32)),
                                     Padding(
                                         padding: getPadding(left: 21),
-                                        child: Text("lbl_0_00".tr,
+                                        child: Obx(() => Text(
+                                            "${controller.quantity.value}",
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.left,
                                             style: AppStyle
-                                                .txtRobotoRomanMedium48))
+                                                .txtRobotoRomanMedium48)))
                                   ]))),
                       Padding(
                           padding: getPadding(top: 56),
@@ -162,6 +175,7 @@ class QrRequestScreen extends GetWidget<QrRequestController> {
                                     .qrRequestModelObj
                                     .value
                                     .qrRequestItemList[index];
+
                                 return QrRequestItemWidget(model);
                               })))
                     ])),
@@ -178,7 +192,13 @@ class QrRequestScreen extends GetWidget<QrRequestController> {
   }
 
   onTapContinue() {
-    Get.toNamed(AppRoutes.qrRequestPageTwoScreen);
+    var data = {
+      "quantity": controller.quantity,
+    };
+    Get.toNamed(
+      AppRoutes.qrRequestPageTwoScreen,
+      arguments: data,
+    );
   }
 
   onTapArrowleft() {

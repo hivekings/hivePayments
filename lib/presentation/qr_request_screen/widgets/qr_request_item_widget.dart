@@ -16,85 +16,101 @@ class QrRequestItemWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(
-          width: getHorizontalSize(
-            66.00,
+        GestureDetector(
+          child: Container(
+            width: getHorizontalSize(
+              66.00,
+            ),
+            padding: getPadding(
+              left: 28,
+              top: 19,
+              right: 28,
+              bottom: 19,
+            ),
+            decoration: AppDecoration.txtOutlineBlack9004c.copyWith(
+              borderRadius: BorderRadiusStyle.txtRoundedBorder12,
+            ),
+            child: Text(
+              "${qrRequestItemModelObj.labelOne}",
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.left,
+              style: AppStyle.txtInterBold20,
+            ),
           ),
-          padding: getPadding(
-            left: 28,
-            top: 19,
-            right: 28,
-            bottom: 19,
-          ),
-          decoration: AppDecoration.txtOutlineBlack9004c.copyWith(
-            borderRadius: BorderRadiusStyle.txtRoundedBorder12,
-          ),
-          child: Text(
-            "lbl_1".tr,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.left,
-            style: AppStyle.txtInterBold20,
-          ),
+          onTap: () =>
+              {controller.keyboardAction(qrRequestItemModelObj.labelOne)},
         ),
-        Container(
-          width: getHorizontalSize(
-            66.00,
+        GestureDetector(
+          child: Container(
+            width: getHorizontalSize(
+              66.00,
+            ),
+            padding: getPadding(
+              left: 26,
+              top: 19,
+              right: 26,
+              bottom: 19,
+            ),
+            decoration: AppDecoration.txtOutlineBlack9004c.copyWith(
+              borderRadius: BorderRadiusStyle.txtRoundedBorder12,
+            ),
+            child: Text(
+              "${qrRequestItemModelObj.labelTwo}",
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.left,
+              style: AppStyle.txtInterBold20,
+            ),
           ),
-          padding: getPadding(
-            left: 26,
-            top: 19,
-            right: 26,
-            bottom: 19,
-          ),
-          decoration: AppDecoration.txtOutlineBlack9004c.copyWith(
-            borderRadius: BorderRadiusStyle.txtRoundedBorder12,
-          ),
-          child: Text(
-            "lbl_2".tr,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.left,
-            style: AppStyle.txtInterBold20,
-          ),
+          onTap: () =>
+              {controller.keyboardAction(qrRequestItemModelObj.labelTwo)},
         ),
-        Container(
-          width: getHorizontalSize(
-            66.00,
+        GestureDetector(
+          child: Container(
+            width: getHorizontalSize(
+              66.00,
+            ),
+            padding: getPadding(
+              left: 26,
+              top: 19,
+              right: 26,
+              bottom: 19,
+            ),
+            decoration: AppDecoration.txtOutlineBlack9004c.copyWith(
+              borderRadius: BorderRadiusStyle.txtRoundedBorder12,
+            ),
+            child: Text(
+              "${qrRequestItemModelObj.labelThree}",
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.left,
+              style: AppStyle.txtInterBold20,
+            ),
           ),
-          padding: getPadding(
-            left: 26,
-            top: 19,
-            right: 26,
-            bottom: 19,
-          ),
-          decoration: AppDecoration.txtOutlineBlack9004c.copyWith(
-            borderRadius: BorderRadiusStyle.txtRoundedBorder12,
-          ),
-          child: Text(
-            "lbl_3".tr,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.left,
-            style: AppStyle.txtInterBold20,
-          ),
+          onTap: () =>
+              {controller.keyboardAction(qrRequestItemModelObj.labelThree)},
         ),
-        Container(
-          width: getHorizontalSize(
-            66.00,
+        GestureDetector(
+          child: Container(
+            width: getHorizontalSize(
+              66.00,
+            ),
+            padding: getPadding(
+              left: 26,
+              top: 19,
+              right: 26,
+              bottom: 19,
+            ),
+            decoration: AppDecoration.txtOutlineBlack9004c.copyWith(
+              borderRadius: BorderRadiusStyle.txtRoundedBorder12,
+            ),
+            child: Text(
+              "${qrRequestItemModelObj.labelFour}",
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.left,
+              style: AppStyle.txtInterBold20,
+            ),
           ),
-          padding: getPadding(
-            left: 26,
-            top: 19,
-            right: 26,
-            bottom: 19,
-          ),
-          decoration: AppDecoration.txtOutlineBlack9004c.copyWith(
-            borderRadius: BorderRadiusStyle.txtRoundedBorder12,
-          ),
-          child: Text(
-            "lbl_4".tr,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.left,
-            style: AppStyle.txtInterBold20,
-          ),
+          onTap: () =>
+              {controller.keyboardAction(qrRequestItemModelObj.labelFour)},
         ),
       ],
     );

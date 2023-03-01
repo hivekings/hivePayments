@@ -8,6 +8,8 @@ class QrRequestPageTwoController extends GetxController {
   Rx<QrRequestPageTwoModel> qrRequestPageTwoModelObj =
       QrRequestPageTwoModel().obs;
 
+  dynamic quantitydata = Get.arguments["quantity"];
+
   @override
   void onReady() {
     super.onReady();

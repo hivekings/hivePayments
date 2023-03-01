@@ -1,6 +1,7 @@
 name: hive_payments
 description: Hive payments created by chocolatoso for hivekings
 version: 1.0.0+1
+publish_to: none
 environment: 
   sdk: '>=2.12.0 <3.0.0'
 dependencies: 
@@ -12,6 +13,8 @@ dependencies:
   cached_network_image: ^3.2.1
   flutter_svg: ^1.1.6
   intl: ^0.17.0
+  qr_flutter: ^4.0.0
+  mobile_scanner: ^3.0.0
 dev_dependencies: 
   flutter_test: 
     sdk: flutter

@@ -123,65 +123,15 @@ class QrRequestPageTwoScreen extends GetWidget<QrRequestPageTwoController> {
                           text: "lbl_continue".tr,
                           margin: getMargin(top: 56),
                           onTap: onTapContinue),
-                      Container(
-                          width: size.width,
-                          margin: getMargin(top: 86, bottom: 5),
-                          padding: getPadding(top: 7, bottom: 7),
-                          decoration: AppDecoration.fillBluegray90001,
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                CustomIconButton(
-                                    height: 30,
-                                    width: 30,
-                                    variant:
-                                        IconButtonVariant.OutlineBlack90044,
-                                    shape: IconButtonShape.CircleBorder15,
-                                    padding: IconButtonPadding.PaddingAll3,
-                                    child: CustomImageView(
-                                        svgPath:
-                                            ImageConstant.imgArrowleftGray700)),
-                                Padding(
-                                    padding: getPadding(top: 5, bottom: 2),
-                                    child: Text("lbl_suggest".tr,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: AppStyle.txtRobotoRegular18)),
-                                Container(
-                                    height: getVerticalSize(22.00),
-                                    width: getHorizontalSize(1.00),
-                                    margin: getMargin(top: 4, bottom: 4),
-                                    decoration: BoxDecoration(
-                                        color: ColorConstant.blueGray800)),
-                                Padding(
-                                    padding: getPadding(top: 5, bottom: 2),
-                                    child: Text("lbl_suggest".tr,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: AppStyle.txtRobotoRegular18)),
-                                Container(
-                                    height: getVerticalSize(22.00),
-                                    width: getHorizontalSize(1.00),
-                                    margin: getMargin(top: 4, bottom: 4),
-                                    decoration: BoxDecoration(
-                                        color: ColorConstant.blueGray800)),
-                                Padding(
-                                    padding: getPadding(top: 5, bottom: 2),
-                                    child: Text("lbl_suggest".tr,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: AppStyle.txtRobotoRegular18)),
-                                CustomImageView(
-                                    svgPath: ImageConstant.imgUpload,
-                                    height: getSize(24.00),
-                                    width: getSize(24.00),
-                                    margin: getMargin(top: 3, bottom: 3))
-                              ]))
                     ]))));
   }
 
   onTapContinue() {
-    Get.toNamed(AppRoutes.qrRequestPagueThreeScreen);
+    var data = {
+      "quantity": controller.quantitydata.value,
+      "memo": controller.tEXTFIELDController.value.text
+    };
+    Get.toNamed(AppRoutes.qrRequestPagueThreeScreen, arguments: data);
   }
 
   onTapArrowleft1() {

@@ -38,6 +38,15 @@ class AppStyle {
     fontWeight: FontWeight.w500,
   );
 
+  static TextStyle txtRobotoRomanMedium32RED = TextStyle(
+    color: ColorConstant.redA400,
+    fontSize: getFontSize(
+      32,
+    ),
+    fontFamily: 'Roboto',
+    fontWeight: FontWeight.w500,
+  );
+
   static TextStyle txtRobotoRomanMedium10 = TextStyle(
     color: ColorConstant.gray50001,
     fontSize: getFontSize(

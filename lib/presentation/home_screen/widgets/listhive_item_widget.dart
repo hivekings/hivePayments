@@ -59,7 +59,7 @@ class ListhiveItemWidget extends StatelessWidget {
                       bottom: 2,
                     ),
                     child: Text(
-                      "lbl_hive".tr,
+                      listhiveItemModelObj.getTipoMoneda(),
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.left,
                       style: AppStyle.txtRobotoMedium12,
@@ -86,24 +86,23 @@ class ListhiveItemWidget extends StatelessWidget {
                 top: 12,
               ),
               child: Text(
-                "lbl_500_hive".tr,
+                listhiveItemModelObj.getValor(),
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.left,
                 style: AppStyle.txtRobotoMedium16,
               ),
             ),
             Padding(
-              padding: getPadding(
-                left: 22,
-                top: 1,
-              ),
-              child: Text(
-                "lbl_250_usd".tr,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.left,
-                style: AppStyle.txtRobotoRomanRegular10,
-              ),
-            ),
+                padding: getPadding(
+                  left: 22,
+                  top: 1,
+                ),
+                child: Text(
+                  listhiveItemModelObj.getUsdValue(),
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.left,
+                  style: AppStyle.txtRobotoRomanRegular10,
+                )),
             CustomImageView(
               svgPath: ImageConstant.imgPlus,
               height: getSize(

@@ -73,7 +73,7 @@ class ListellipsethirtyeightItemWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                "lbl_memo".tr,
+                "${listellipsethirtyeightItemModelObj.text}",
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.left,
                 style: AppStyle.txtRobotoRomanMedium16RedA400,
@@ -83,7 +83,7 @@ class ListellipsethirtyeightItemWidget extends StatelessWidget {
                   top: 8,
                 ),
                 child: Text(
-                  "msg_wilde_sunglasses".tr,
+                  "${listellipsethirtyeightItemModelObj.value}",
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.left,
                   style: AppStyle.txtRobotoRomanRegular12WhiteA700,

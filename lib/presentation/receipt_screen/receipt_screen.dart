@@ -73,20 +73,16 @@ class ReceiptScreen extends GetWidget<ReceiptController> {
                                                       MainAxisAlignment
                                                           .spaceBetween,
                                                   children: [
-                                                    Text("lbl_04_12_2022".tr,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: AppStyle
-                                                            .txtRobotoRomanMedium12Gray50001),
-                                                    Text("lbl_12_36".tr,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        textAlign:
-                                                            TextAlign.left,
-                                                        style: AppStyle
-                                                            .txtRobotoRomanMedium12Gray50001)
+                                                    Obx(
+                                                      () => Text(
+                                                          "${controller.receiptModelObj.value.timestamp}",
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                          style: AppStyle
+                                                              .txtRobotoRomanMedium12Gray50001),
+                                                    ),
                                                   ])),
                                           Padding(
                                               padding:
@@ -117,9 +113,8 @@ class ReceiptScreen extends GetWidget<ReceiptController> {
                                                               padding:
                                                                   getPadding(
                                                                       top: 10),
-                                                              child: Text(
-                                                                  "msg_wilde_sunglasses3"
-                                                                      .tr,
+                                                              child: Obx(() => Text(
+                                                                  "${controller.receiptModelObj.value.to}",
                                                                   overflow:
                                                                       TextOverflow
                                                                           .ellipsis,
@@ -127,11 +122,10 @@ class ReceiptScreen extends GetWidget<ReceiptController> {
                                                                       TextAlign
                                                                           .left,
                                                                   style: AppStyle
-                                                                      .txtRobotoRomanMedium12Gray50001))
+                                                                      .txtRobotoRomanMedium12Gray50001)))
                                                         ]),
                                                     CustomImageView(
-                                                        imagePath: ImageConstant
-                                                            .imgEllipse44,
+                                                        url: getImage(),
                                                         height: getSize(41.00),
                                                         width: getSize(41.00),
                                                         radius: BorderRadius
@@ -153,13 +147,13 @@ class ReceiptScreen extends GetWidget<ReceiptController> {
                                           Padding(
                                               padding:
                                                   getPadding(left: 2, top: 10),
-                                              child: Text(
-                                                  "msg_wildesunglasses2".tr,
+                                              child: Obx(() => Text(
+                                                  "${controller.receiptModelObj.value.memo}",
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   textAlign: TextAlign.left,
                                                   style: AppStyle
-                                                      .txtRobotoRomanMedium12Gray50001)),
+                                                      .txtRobotoRomanMedium12Gray50001))),
                                           Padding(
                                               padding:
                                                   getPadding(left: 2, top: 36),
@@ -172,12 +166,13 @@ class ReceiptScreen extends GetWidget<ReceiptController> {
                                           Padding(
                                               padding:
                                                   getPadding(left: 2, top: 10),
-                                              child: Text("lbl_250_00".tr,
+                                              child: Obx(() => Text(
+                                                  "${controller.receiptModelObj.value.amount}",
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   textAlign: TextAlign.left,
                                                   style: AppStyle
-                                                      .txtRobotoRomanMedium12Gray50001))
+                                                      .txtRobotoRomanMedium12Gray50001)))
                                         ]))),
                             Align(
                                 alignment: Alignment.topCenter,
@@ -208,12 +203,10 @@ class ReceiptScreen extends GetWidget<ReceiptController> {
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   textAlign: TextAlign.left,
-                                                  style: AppStyle
-                                                      .txtInterMedium20)),
+                                                  style: transactionStyle())),
                                           Padding(
                                               padding: getPadding(top: 6),
-                                              child: Text(
-                                                  "msg_confirmations_2_15".tr,
+                                              child: Text("",
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   textAlign: TextAlign.left,
@@ -375,5 +368,20 @@ class ReceiptScreen extends GetWidget<ReceiptController> {
 
   onTapArrowleft4() {
     Get.back();
+  }
+
+  getImage() {
+    var uname = controller.receiptModelObj.value.to;
+    var image = "https://images.hive.blog/u/$uname/avatar";
+    return image;
+  }
+
+  transactionStyle() {
+    var uname = controller.receiptModelObj.value.from;
+
+    if (controller.activeUsername == uname) {
+      return AppStyle.txtRobotoRomanMedium16RedA400;
+    }
+    return AppStyle.txtInterMedium20;
   }
 }
