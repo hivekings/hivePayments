@@ -1,3 +1,6 @@
+import 'package:hive_payments/data/apiClient/lib.dart';
+import 'package:hive_payments/widgets/custom_text_form_field.dart';
+
 import 'controller/transfer_page_three_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_payments/core/app_export.dart';
@@ -38,7 +41,7 @@ class TransferPageThreeScreen extends GetWidget<TransferPageThreeController> {
                             Container(
                                 width: getSize(32.00),
                                 padding: getPadding(
-                                    left: 12, top: 5, right: 12, bottom: 5),
+                                    left: 5, top: 5, right: 5, bottom: 5),
                                 decoration: AppDecoration.txtOutlineRedA400
                                     .copyWith(
                                         borderRadius: BorderRadiusStyle
@@ -57,7 +60,7 @@ class TransferPageThreeScreen extends GetWidget<TransferPageThreeController> {
                             Container(
                                 width: getSize(32.00),
                                 padding: getPadding(
-                                    left: 10, top: 5, right: 10, bottom: 5),
+                                    left: 5, top: 5, right: 5, bottom: 5),
                                 decoration: AppDecoration.txtOutlineRedA400
                                     .copyWith(
                                         borderRadius: BorderRadiusStyle
@@ -76,7 +79,7 @@ class TransferPageThreeScreen extends GetWidget<TransferPageThreeController> {
                             Container(
                                 width: getSize(32.00),
                                 padding: getPadding(
-                                    left: 10, top: 5, right: 10, bottom: 5),
+                                    left: 5, top: 5, right: 5, bottom: 5),
                                 decoration: AppDecoration.txtFillRedA400
                                     .copyWith(
                                         borderRadius: BorderRadiusStyle
@@ -159,7 +162,7 @@ class TransferPageThreeScreen extends GetWidget<TransferPageThreeController> {
                                           Padding(
                                               padding: getPadding(top: 8),
                                               child: Text(
-                                                  "msg_wilde_sunglasses2".tr,
+                                                  "${controller.username}",
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   textAlign: TextAlign.left,
@@ -175,8 +178,7 @@ class TransferPageThreeScreen extends GetWidget<TransferPageThreeController> {
                                                       .txtRobotoRomanMedium16RedA400)),
                                           Padding(
                                               padding: getPadding(top: 8),
-                                              child: Text(
-                                                  "msg_wilde_sunglasses".tr,
+                                              child: Text("${controller.memo}",
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   textAlign: TextAlign.left,
@@ -214,12 +216,15 @@ class TransferPageThreeScreen extends GetWidget<TransferPageThreeController> {
                                                   .txtRobotoRomanMedium16RedA400),
                                           Padding(
                                               padding: getPadding(top: 7),
-                                              child: Text("lbl_350".tr,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  textAlign: TextAlign.left,
-                                                  style: AppStyle
-                                                      .txtRobotoRomanRegular12WhiteA700))
+                                              child: CustomTextFormField(
+                                                  width: 100,
+                                                  focusNode: FocusNode(),
+                                                  controller: controller
+                                                      .tEXTFIELDController,
+                                                  hintText: "Amount",
+                                                  margin: getMargin(top: 0),
+                                                  textInputAction:
+                                                      TextInputAction.done))
                                         ]))
                               ])),
                       CustomButton(
@@ -239,8 +244,9 @@ class TransferPageThreeScreen extends GetWidget<TransferPageThreeController> {
                     ]))));
   }
 
-  onTapConfirmpaymentOne() {
-    Get.toNamed(AppRoutes.receiptOneScreen);
+  onTapConfirmpaymentOne() async {
+    await controller.client.makeTransfer(controller.username,
+        controller.tEXTFIELDController.value.text, "HIVE", controller.memo);
   }
 
   onTapCancel() {

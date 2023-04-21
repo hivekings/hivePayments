@@ -41,15 +41,16 @@ class QrRequestPagueThreeScreen
                           children: [
                             Container(
                                 width: getSize(32.00),
+                                alignment: Alignment.center,
                                 padding: getPadding(
-                                    left: 12, top: 5, right: 12, bottom: 5),
+                                    left: 5, top: 5, right: 5, bottom: 5),
                                 decoration: AppDecoration.txtOutlineRedA400
                                     .copyWith(
                                         borderRadius: BorderRadiusStyle
                                             .txtCircleBorder16),
                                 child: Text("lbl_1".tr,
                                     overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left,
+                                    textAlign: TextAlign.center,
                                     style:
                                         AppStyle.txtRobotoRomanBold16RedA400)),
                             Container(
@@ -61,14 +62,14 @@ class QrRequestPagueThreeScreen
                             Container(
                                 width: getSize(32.00),
                                 padding: getPadding(
-                                    left: 10, top: 5, right: 10, bottom: 5),
+                                    left: 5, top: 5, right: 5, bottom: 5),
                                 decoration: AppDecoration.txtOutlineRedA400
                                     .copyWith(
                                         borderRadius: BorderRadiusStyle
                                             .txtCircleBorder16),
                                 child: Text("lbl_2".tr,
                                     overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left,
+                                    textAlign: TextAlign.center,
                                     style:
                                         AppStyle.txtRobotoRomanBold16RedA400)),
                             Container(
@@ -80,14 +81,14 @@ class QrRequestPagueThreeScreen
                             Container(
                                 width: getSize(32.00),
                                 padding: getPadding(
-                                    left: 10, top: 5, right: 10, bottom: 5),
+                                    left: 5, top: 5, right: 5, bottom: 5),
                                 decoration: AppDecoration.txtFillRedA400
                                     .copyWith(
                                         borderRadius: BorderRadiusStyle
                                             .txtCircleBorder16),
                                 child: Text("lbl_3".tr,
                                     overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left,
+                                    textAlign: TextAlign.center,
                                     style: AppStyle.txtRobotoRomanBold16))
                           ]),
                       Padding(
@@ -130,10 +131,6 @@ class QrRequestPagueThreeScreen
                                   borderRadius:
                                       BorderRadiusStyle.roundedBorder12),
                               child: Container(
-                                  height: getVerticalSize(216.00),
-                                  width: getHorizontalSize(218.00),
-                                  padding: getPadding(
-                                      left: 17, top: 16, right: 17, bottom: 16),
                                   decoration: AppDecoration.fillWhiteA700
                                       .copyWith(
                                           borderRadius: BorderRadiusStyle

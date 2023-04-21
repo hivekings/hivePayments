@@ -9,6 +9,7 @@ class QrRequestPageTwoController extends GetxController {
       QrRequestPageTwoModel().obs;
 
   dynamic quantitydata = Get.arguments["quantity"];
+  dynamic currencyData = Get.arguments["currency"];
 
   @override
   void onReady() {

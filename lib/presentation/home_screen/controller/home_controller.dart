@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:hive_payments/core/app_export.dart';
 import 'package:hive_payments/presentation/home_screen/models/home_model.dart';
 import 'package:http/http.dart' as http;
@@ -6,14 +7,24 @@ import 'dart:convert';
 import '../models/listellipsenine_item_model.dart';
 import '../models/listhive_item_model.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class HomeController extends GetxController {
   Rx<HomeModel> homeModelObj = HomeModel().obs;
+  final storage = new FlutterSecureStorage();
+  Rx<bool> isLoader = true.obs;
 
   @override
   Future<void> onReady() async {
     super.onReady();
-    homeModelObj.value.username = "infernalcoliseum";
+  }
+
+  @override
+  Future<void> onInit() async {
+    super.onInit();
+
+    String? str = await storage.read(key: "username");
+    homeModelObj.value.username = str!;
     homeModelObj.refresh();
     homeModelObj.value.listhiveItemList = [
       await getDataValue(homeModelObj.value.username, "HIVE"),
@@ -26,8 +37,17 @@ class HomeController extends GetxController {
     homeModelObj.value.listellipsenineItemList = data;
     await loadMore();
     await loadMore();
-    await loadMore();
+    homeModelObj.value.listellipsenineItemList.sort((a, b) {
+      var adate = a.timetest; //before -> var adate = a.expiry;
+      var bdate = b.timetest; //before -> var bdate = b.expiry;
+      return bdate.compareTo(
+          adate); //to get the order other way just switch `adate & bdate`
+    });
+    homeModelObj.value.listellipsenineItemList =
+        homeModelObj.value.listellipsenineItemList.toSet().toList();
     homeModelObj.refresh();
+    isLoader.value = false;
+    isLoader.refresh();
   }
 
   @override
@@ -36,14 +56,18 @@ class HomeController extends GetxController {
   }
 
   loadMore() async {
-    List<ListellipsenineItemModel> list =
-        homeModelObj.value.listellipsenineItemList;
-    List<ListellipsenineItemModel> newData = await fetchData(
-        homeModelObj.value.username, homeModelObj.value.lastStack - 1000);
+    int? lasStak = homeModelObj.value.lastStack;
+    if (lasStak != null) {
+      if (lasStak > 1000) {
+        List<ListellipsenineItemModel> list =
+            homeModelObj.value.listellipsenineItemList;
+        List<ListellipsenineItemModel> newData = await fetchData(
+            homeModelObj.value.username, homeModelObj.value.lastStack - 1000);
 
-    list.addAll(newData);
-
-    homeModelObj.value.listellipsenineItemList = list;
+        list.addAll(newData);
+        homeModelObj.value.listellipsenineItemList = list;
+      }
+    }
   }
 
   Future<String> getUsdValue(String coin, String value) async {
@@ -178,8 +202,12 @@ class HomeController extends GetxController {
   }
 
   Future<List<ListellipsenineItemModel>> fetchData(username, stack) async {
+    var t = stack;
+    if (t == -1) {
+      t = 0;
+    }
     final response = await http.post(
-      Uri.parse('https://api.hive.blog/'),
+      Uri.parse('https://api.deathwing.me/'),
       headers: {
         "accept": "application/json, text/plain, */*",
         "accept-language": "es-US,es-CO;q=0.9,es-419;q=0.8,es;q=0.7",
@@ -193,8 +221,9 @@ class HomeController extends GetxController {
         "sec-fetch-site": "cross-site"
       },
       body:
-          "{\"id\":17,\"jsonrpc\":\"2.0\",\"method\":\"condenser_api.get_account_history\",\"params\":[\"$username\",$stack,1000,\"848647637693366652\",\"1713166\"]}",
+          "{\"id\":$t,\"jsonrpc\":\"2.0\",\"method\":\"condenser_api.get_account_history\",\"params\":[\"$username\",$stack,1000,\"848647637693366652\",\"1713166\"]}",
     );
+    debugPrint("${response.body}");
     try {
       final jsonResponse = json.decode(response.body);
 
@@ -212,15 +241,15 @@ class HomeController extends GetxController {
           String formattedDate = DateFormat.yMMMMd().add_jms().format(dateTime);
 
           var temp = new ListellipsenineItemModel(
-            item[0],
-            item[1]["op"][0],
-            item[1]["op"][1]["amount"],
-            item[1]["op"][1]["memo"],
-            item[1]["op"][1]["from"],
-            item[1]["op"][1]["to"],
-            formattedDate,
-            item[1]["trx_id"],
-          );
+              item[0],
+              item[1]["op"][0],
+              item[1]["op"][1]["amount"],
+              item[1]["op"][1]["memo"],
+              item[1]["op"][1]["from"],
+              item[1]["op"][1]["to"],
+              formattedDate,
+              item[1]["trx_id"],
+              dateTime);
 
           list.add(temp);
         }
@@ -231,7 +260,6 @@ class HomeController extends GetxController {
       }
       homeModelObj.value.lastStack = stack;
       homeModelObj.refresh();
-
       return list;
       // Use the jsonResponse map as needed
     } catch (e) {

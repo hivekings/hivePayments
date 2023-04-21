@@ -1,3 +1,8 @@
+import 'dart:convert';
+
+import 'package:hive_payments/data/apiClient/lib.dart';
+import 'package:hive_payments/widgets/custom_text_form_field.dart';
+
 import 'controller/transfer_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_payments/core/app_export.dart';
@@ -9,7 +14,7 @@ class TransferScreen extends GetWidget<TransferController> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        top: false,
+        top: true,
         bottom: false,
         child: Scaffold(
             backgroundColor: ColorConstant.black900,
@@ -33,7 +38,7 @@ class TransferScreen extends GetWidget<TransferController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text("lbl_recents".tr,
+                              /*Text("lbl_recents".tr,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
                                   style:
@@ -150,6 +155,7 @@ class TransferScreen extends GetWidget<TransferController> {
                                                           .txtInterMedium12))
                                             ])
                                       ])),
+                              */
                               Padding(
                                   padding: getPadding(top: 30),
                                   child: Row(children: [
@@ -162,6 +168,44 @@ class TransferScreen extends GetWidget<TransferController> {
                                                 .txtRobotoRomanMedium16Gray500)),
                                     Spacer(),
                                     CustomImageView(
+                                        onTap: () => {
+                                              showModalBottomSheet<void>(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return SizedBox(
+                                                    height: 500,
+                                                    child: Center(
+                                                      child: Column(
+                                                        children: <Widget>[
+                                                          CustomTextFormField(
+                                                              width: 312,
+                                                              focusNode:
+                                                                  FocusNode(),
+                                                              controller: controller
+                                                                  .tEXTFIELDController,
+                                                              hintText:
+                                                                  "username",
+                                                              margin: getMargin(
+                                                                  top: 70,
+                                                                  bottom: 20),
+                                                              textInputAction:
+                                                                  TextInputAction
+                                                                      .done),
+                                                          ElevatedButton(
+                                                              child: const Text(
+                                                                  'Add User'),
+                                                              onPressed: () =>
+                                                                  controller
+                                                                      .addUsername(
+                                                                          context)),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              )
+                                            },
                                         svgPath: ImageConstant.imgPlus,
                                         height: getSize(24.00),
                                         width: getSize(24.00)),
@@ -179,447 +223,90 @@ class TransferScreen extends GetWidget<TransferController> {
                                         width: getSize(24.00),
                                         margin: getMargin(left: 18))
                                   ])),
-                              GestureDetector(
-                                  onTap: () {
-                                    onTapCARDMOVEMENT();
-                                  },
-                                  child: Container(
-                                      margin: getMargin(top: 32),
-                                      padding: getPadding(
-                                          left: 14,
-                                          top: 10,
-                                          right: 14,
-                                          bottom: 10),
-                                      decoration: AppDecoration
-                                          .outlineBlack9004c1
-                                          .copyWith(
-                                              borderRadius: BorderRadiusStyle
-                                                  .roundedBorder8),
-                                      child: Row(children: [
-                                        CustomImageView(
-                                            imagePath:
-                                                ImageConstant.imgEllipse95,
-                                            height: getSize(36.00),
-                                            width: getSize(36.00),
-                                            radius: BorderRadius.circular(
-                                                getHorizontalSize(18.00))),
-                                        Padding(
-                                            padding: getPadding(
-                                                left: 12, top: 3, bottom: 2),
-                                            child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                      "msg_wilde_sunglasses2"
-                                                          .tr,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.left,
-                                                      style: AppStyle
-                                                          .txtRobotoRomanMedium13),
-                                                  Padding(
-                                                      padding:
-                                                          getPadding(top: 2),
-                                                      child: Text(
-                                                          "msg_wildesunglasses3"
-                                                              .tr,
+                              Container(
+                                child: Obx(() => ListView.separated(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    separatorBuilder: (context, index) {
+                                      return SizedBox(
+                                          height: getVerticalSize(0));
+                                    },
+                                    itemCount: controller.listUsers.value
+                                        .listhiveItemList.length,
+                                    itemBuilder: (context, index) {
+                                      var model = controller.listUsers.value
+                                          .listhiveItemList[index];
+
+                                      return Container(
+                                          margin: getMargin(top: 12),
+                                          padding: getPadding(
+                                              left: 14,
+                                              top: 10,
+                                              right: 14,
+                                              bottom: 10),
+                                          decoration: AppDecoration
+                                              .outlineBlack9004c1
+                                              .copyWith(
+                                                  borderRadius:
+                                                      BorderRadiusStyle
+                                                          .roundedBorder8),
+                                          child: Row(children: [
+                                            CustomImageView(
+                                                url:
+                                                    "https://images.hive.blog/u/${model['username']}/avatar",
+                                                height: getSize(36.00),
+                                                width: getSize(36.00),
+                                                radius: BorderRadius.circular(
+                                                    getHorizontalSize(18.00))),
+                                            Padding(
+                                                padding: getPadding(
+                                                    left: 12,
+                                                    top: 3,
+                                                    bottom: 2),
+                                                child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                          "${model['username']}",
                                                           overflow: TextOverflow
                                                               .ellipsis,
                                                           textAlign:
                                                               TextAlign.left,
                                                           style: AppStyle
-                                                              .txtRobotoRomanMedium9))
-                                                ])),
-                                        Spacer(),
-                                        CustomImageView(
-                                            svgPath: ImageConstant
-                                                .imgArrowrightWhiteA700,
-                                            height: getSize(20.00),
-                                            width: getSize(20.00),
-                                            margin:
-                                                getMargin(top: 8, bottom: 8))
-                                      ]))),
-                              GestureDetector(
-                                  onTap: () {
-                                    onTapCARDMOVEMENT1();
-                                  },
-                                  child: Container(
-                                      margin: getMargin(top: 16),
-                                      padding: getPadding(
-                                          left: 14,
-                                          top: 10,
-                                          right: 14,
-                                          bottom: 10),
-                                      decoration: AppDecoration
-                                          .outlineBlack9004c1
-                                          .copyWith(
-                                              borderRadius: BorderRadiusStyle
-                                                  .roundedBorder8),
-                                      child: Row(children: [
-                                        CustomImageView(
-                                            imagePath:
-                                                ImageConstant.imgEllipse96,
-                                            height: getSize(36.00),
-                                            width: getSize(36.00),
-                                            radius: BorderRadius.circular(
-                                                getHorizontalSize(18.00))),
-                                        Padding(
-                                            padding: getPadding(
-                                                left: 12, top: 3, bottom: 2),
-                                            child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                      "msg_wilde_sunglasses2"
-                                                          .tr,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.left,
-                                                      style: AppStyle
-                                                          .txtRobotoRomanMedium13),
-                                                  Padding(
-                                                      padding:
-                                                          getPadding(top: 2),
-                                                      child: Text(
-                                                          "msg_wildesunglasses3"
-                                                              .tr,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          textAlign:
-                                                              TextAlign.left,
-                                                          style: AppStyle
-                                                              .txtRobotoRomanMedium9))
-                                                ])),
-                                        Spacer(),
-                                        CustomImageView(
-                                            svgPath: ImageConstant
-                                                .imgArrowrightWhiteA700,
-                                            height: getSize(20.00),
-                                            width: getSize(20.00),
-                                            margin:
-                                                getMargin(top: 8, bottom: 8))
-                                      ]))),
-                              GestureDetector(
-                                  onTap: () {
-                                    onTapCARDMOVEMENT2();
-                                  },
-                                  child: Container(
-                                      margin: getMargin(top: 16),
-                                      padding: getPadding(
-                                          left: 14,
-                                          top: 10,
-                                          right: 14,
-                                          bottom: 10),
-                                      decoration: AppDecoration
-                                          .outlineBlack9004c1
-                                          .copyWith(
-                                              borderRadius: BorderRadiusStyle
-                                                  .roundedBorder8),
-                                      child: Row(children: [
-                                        CustomImageView(
-                                            imagePath:
-                                                ImageConstant.imgEllipse97,
-                                            height: getSize(36.00),
-                                            width: getSize(36.00),
-                                            radius: BorderRadius.circular(
-                                                getHorizontalSize(18.00))),
-                                        Padding(
-                                            padding: getPadding(
-                                                left: 12, top: 3, bottom: 2),
-                                            child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                      "msg_wilde_sunglasses2"
-                                                          .tr,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.left,
-                                                      style: AppStyle
-                                                          .txtRobotoRomanMedium13),
-                                                  Padding(
-                                                      padding:
-                                                          getPadding(top: 2),
-                                                      child: Text(
-                                                          "msg_wildesunglasses3"
-                                                              .tr,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          textAlign:
-                                                              TextAlign.left,
-                                                          style: AppStyle
-                                                              .txtRobotoRomanMedium9))
-                                                ])),
-                                        Spacer(),
-                                        CustomImageView(
-                                            svgPath: ImageConstant
-                                                .imgArrowrightWhiteA700,
-                                            height: getSize(20.00),
-                                            width: getSize(20.00),
-                                            margin:
-                                                getMargin(top: 8, bottom: 8))
-                                      ]))),
-                              GestureDetector(
-                                  onTap: () {
-                                    onTapCARDMOVEMENT3();
-                                  },
-                                  child: Container(
-                                      margin: getMargin(top: 16),
-                                      padding: getPadding(
-                                          left: 14,
-                                          top: 10,
-                                          right: 14,
-                                          bottom: 10),
-                                      decoration: AppDecoration
-                                          .outlineBlack9004c1
-                                          .copyWith(
-                                              borderRadius: BorderRadiusStyle
-                                                  .roundedBorder8),
-                                      child: Row(children: [
-                                        CustomImageView(
-                                            imagePath:
-                                                ImageConstant.imgEllipse98,
-                                            height: getSize(36.00),
-                                            width: getSize(36.00),
-                                            radius: BorderRadius.circular(
-                                                getHorizontalSize(18.00))),
-                                        Padding(
-                                            padding: getPadding(
-                                                left: 12, top: 3, bottom: 2),
-                                            child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                      "msg_wilde_sunglasses2"
-                                                          .tr,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.left,
-                                                      style: AppStyle
-                                                          .txtRobotoRomanMedium13),
-                                                  Padding(
-                                                      padding:
-                                                          getPadding(top: 2),
-                                                      child: Text(
-                                                          "msg_wildesunglasses3"
-                                                              .tr,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          textAlign:
-                                                              TextAlign.left,
-                                                          style: AppStyle
-                                                              .txtRobotoRomanMedium9))
-                                                ])),
-                                        Spacer(),
-                                        CustomImageView(
-                                            svgPath: ImageConstant
-                                                .imgArrowrightWhiteA700,
-                                            height: getSize(20.00),
-                                            width: getSize(20.00),
-                                            margin:
-                                                getMargin(top: 8, bottom: 8))
-                                      ]))),
-                              GestureDetector(
-                                  onTap: () {
-                                    onTapCARDMOVEMENT4();
-                                  },
-                                  child: Container(
-                                      margin: getMargin(top: 16),
-                                      padding: getPadding(
-                                          left: 14,
-                                          top: 10,
-                                          right: 14,
-                                          bottom: 10),
-                                      decoration: AppDecoration
-                                          .outlineBlack9004c1
-                                          .copyWith(
-                                              borderRadius: BorderRadiusStyle
-                                                  .roundedBorder8),
-                                      child: Row(children: [
-                                        CustomImageView(
-                                            imagePath:
-                                                ImageConstant.imgEllipse99,
-                                            height: getSize(36.00),
-                                            width: getSize(36.00),
-                                            radius: BorderRadius.circular(
-                                                getHorizontalSize(18.00))),
-                                        Padding(
-                                            padding: getPadding(
-                                                left: 12, top: 3, bottom: 2),
-                                            child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                      "msg_wilde_sunglasses2"
-                                                          .tr,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.left,
-                                                      style: AppStyle
-                                                          .txtRobotoRomanMedium13),
-                                                  Padding(
-                                                      padding:
-                                                          getPadding(top: 2),
-                                                      child: Text(
-                                                          "msg_wildesunglasses3"
-                                                              .tr,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          textAlign:
-                                                              TextAlign.left,
-                                                          style: AppStyle
-                                                              .txtRobotoRomanMedium9))
-                                                ])),
-                                        Spacer(),
-                                        CustomImageView(
-                                            svgPath: ImageConstant
-                                                .imgArrowrightWhiteA700,
-                                            height: getSize(20.00),
-                                            width: getSize(20.00),
-                                            margin:
-                                                getMargin(top: 8, bottom: 8))
-                                      ]))),
-                              GestureDetector(
-                                  onTap: () {
-                                    onTapCARDMOVEMENT5();
-                                  },
-                                  child: Container(
-                                      margin: getMargin(top: 16),
-                                      padding: getPadding(
-                                          left: 14,
-                                          top: 10,
-                                          right: 14,
-                                          bottom: 10),
-                                      decoration: AppDecoration
-                                          .outlineBlack9004c1
-                                          .copyWith(
-                                              borderRadius: BorderRadiusStyle
-                                                  .roundedBorder8),
-                                      child: Row(children: [
-                                        CustomImageView(
-                                            imagePath:
-                                                ImageConstant.imgEllipse910,
-                                            height: getSize(36.00),
-                                            width: getSize(36.00),
-                                            radius: BorderRadius.circular(
-                                                getHorizontalSize(18.00))),
-                                        Padding(
-                                            padding: getPadding(
-                                                left: 12, top: 3, bottom: 2),
-                                            child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                      "msg_wilde_sunglasses2"
-                                                          .tr,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.left,
-                                                      style: AppStyle
-                                                          .txtRobotoRomanMedium13),
-                                                  Padding(
-                                                      padding:
-                                                          getPadding(top: 2),
-                                                      child: Text(
-                                                          "msg_wildesunglasses3"
-                                                              .tr,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          textAlign:
-                                                              TextAlign.left,
-                                                          style: AppStyle
-                                                              .txtRobotoRomanMedium9))
-                                                ])),
-                                        Spacer(),
-                                        CustomImageView(
-                                            svgPath: ImageConstant
-                                                .imgArrowrightWhiteA700,
-                                            height: getSize(20.00),
-                                            width: getSize(20.00),
-                                            margin:
-                                                getMargin(top: 8, bottom: 8))
-                                      ]))),
-                              GestureDetector(
-                                  onTap: () {
-                                    onTapCARDMOVEMENT6();
-                                  },
-                                  child: Container(
-                                      margin: getMargin(top: 16),
-                                      padding: getPadding(
-                                          left: 14,
-                                          top: 10,
-                                          right: 14,
-                                          bottom: 10),
-                                      decoration: AppDecoration
-                                          .outlineBlack9004c1
-                                          .copyWith(
-                                              borderRadius: BorderRadiusStyle
-                                                  .roundedBorder8),
-                                      child: Row(children: [
-                                        CustomImageView(
-                                            imagePath:
-                                                ImageConstant.imgEllipse911,
-                                            height: getSize(36.00),
-                                            width: getSize(36.00),
-                                            radius: BorderRadius.circular(
-                                                getHorizontalSize(18.00))),
-                                        Padding(
-                                            padding: getPadding(
-                                                left: 12, top: 3, bottom: 3),
-                                            child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                      "msg_wilde_sunglasses2"
-                                                          .tr,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.left,
-                                                      style: AppStyle
-                                                          .txtRobotoRomanMedium13),
-                                                  Padding(
-                                                      padding:
-                                                          getPadding(top: 1),
-                                                      child: Text(
-                                                          "msg_wildesunglasses3"
-                                                              .tr,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          textAlign:
-                                                              TextAlign.left,
-                                                          style: AppStyle
-                                                              .txtRobotoRomanMedium9))
-                                                ])),
-                                        Spacer(),
-                                        CustomImageView(
-                                            svgPath: ImageConstant
-                                                .imgArrowrightWhiteA700,
-                                            height: getSize(20.00),
-                                            width: getSize(20.00),
-                                            margin:
-                                                getMargin(top: 8, bottom: 8))
-                                      ])))
+                                                              .txtRobotoRomanMedium13),
+                                                      Padding(
+                                                          padding: getPadding(
+                                                              top: 2),
+                                                          child: Text(
+                                                              "@${model['username']}",
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .left,
+                                                              style: AppStyle
+                                                                  .txtRobotoRomanMedium9))
+                                                    ])),
+                                            Spacer(),
+                                            CustomImageView(
+                                                onTap: () => {
+                                                      displayOptions(
+                                                          context, model)
+                                                    },
+                                                svgPath: ImageConstant
+                                                    .imgArrowrightWhiteA700,
+                                                height: getSize(20.00),
+                                                width: getSize(20.00),
+                                                margin: getMargin(
+                                                    top: 8, bottom: 8))
+                                          ]));
+                                    })),
+                              ),
                             ]))))));
   }
 
@@ -627,31 +314,59 @@ class TransferScreen extends GetWidget<TransferController> {
     Get.toNamed(AppRoutes.transferPageOneScreen);
   }
 
-  onTapCARDMOVEMENT1() {
-    Get.toNamed(AppRoutes.transferPageOneScreen);
-  }
-
-  onTapCARDMOVEMENT2() {
-    Get.toNamed(AppRoutes.transferPageOneScreen);
-  }
-
-  onTapCARDMOVEMENT3() {
-    Get.toNamed(AppRoutes.transferPageOneScreen);
-  }
-
-  onTapCARDMOVEMENT4() {
-    Get.toNamed(AppRoutes.transferPageOneScreen);
-  }
-
-  onTapCARDMOVEMENT5() {
-    Get.toNamed(AppRoutes.transferPageOneScreen);
-  }
-
-  onTapCARDMOVEMENT6() {
-    Get.toNamed(AppRoutes.transferPageOneScreen);
-  }
-
   onTapArrowleft5() {
     Get.back();
+  }
+
+  displayOptions(context, username) {
+    return showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return SizedBox(
+          height: 100,
+          child: Center(
+            child: Row(
+              children: <Widget>[
+                SizedBox(width: 5),
+                Expanded(
+                  child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.red),
+                        // Puedes personalizar otros atributos del botón aquí
+                      ),
+                      child: const Text('Remove User'),
+                      onPressed: () =>
+                          {removeUser(context, username["username"])}),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: ElevatedButton(
+                      child: const Text('Transfer'),
+                      onPressed: () => {transfer(username["username"])}),
+                ),
+                SizedBox(width: 5)
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  removeUser(context, userToRemove) async {
+    var list = controller.listUsers.value.listhiveItemList;
+    list.removeWhere((item) => item["username"] == userToRemove);
+    controller.listUsers.value.listhiveItemList = list;
+    await storage.write(
+        key: "transferadd",
+        value: json.encode(controller.listUsers.value.listhiveItemList));
+    controller.listUsers.refresh();
+    Navigator.pop(context);
+  }
+
+  transfer(user) {
+    var tx = {"username": user};
+    Get.toNamed(AppRoutes.transferPageTwoScreen, arguments: tx);
   }
 }

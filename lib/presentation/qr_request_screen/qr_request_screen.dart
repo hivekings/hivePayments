@@ -42,7 +42,7 @@ class QrRequestScreen extends GetWidget<QrRequestController> {
                             Container(
                                 width: getSize(32.00),
                                 padding: getPadding(
-                                    left: 12, top: 5, right: 12, bottom: 5),
+                                    left: 5, top: 5, right: 5, bottom: 5),
                                 decoration: AppDecoration.txtFillRedA400
                                     .copyWith(
                                         borderRadius: BorderRadiusStyle
@@ -60,7 +60,7 @@ class QrRequestScreen extends GetWidget<QrRequestController> {
                             Container(
                                 width: getSize(32.00),
                                 padding: getPadding(
-                                    left: 10, top: 5, right: 10, bottom: 5),
+                                    left: 5, top: 5, right: 5, bottom: 5),
                                 decoration: AppDecoration.txtOutlineBluegray900
                                     .copyWith(
                                         borderRadius: BorderRadiusStyle
@@ -79,14 +79,14 @@ class QrRequestScreen extends GetWidget<QrRequestController> {
                             Container(
                                 width: getSize(32.00),
                                 padding: getPadding(
-                                    left: 10, top: 5, right: 10, bottom: 5),
+                                    left: 5, top: 5, right: 5, bottom: 5),
                                 decoration: AppDecoration.txtOutlineBluegray900
                                     .copyWith(
                                         borderRadius: BorderRadiusStyle
                                             .txtCircleBorder16),
                                 child: Text("lbl_3".tr,
                                     overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left,
+                                    textAlign: TextAlign.center,
                                     style: AppStyle
                                         .txtRobotoRomanBold16Bluegray900))
                           ]),
@@ -194,6 +194,7 @@ class QrRequestScreen extends GetWidget<QrRequestController> {
   onTapContinue() {
     var data = {
       "quantity": controller.quantity,
+      "currency": controller.qrRequestModelObj.value.currency
     };
     Get.toNamed(
       AppRoutes.qrRequestPageTwoScreen,

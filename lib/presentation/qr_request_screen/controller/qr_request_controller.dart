@@ -28,7 +28,9 @@ class QrRequestController extends GetxController {
       return;
     }
     if (quantity.value == "0") {
-      deleteAction();
+      if (labelOne != ".") {
+        deleteAction();
+      }
     }
 
     if (labelOne == ".") {

@@ -7,9 +7,13 @@ class TransferPageTwoController extends GetxController {
 
   Rx<TransferPageTwoModel> transferPageTwoModelObj = TransferPageTwoModel().obs;
 
+  dynamic username = Get.arguments["username"];
+
   @override
   void onReady() {
     super.onReady();
+
+    debugPrint("$username");
   }
 
   @override

@@ -7,6 +7,7 @@ class ListellipsenineItemModel {
   dynamic to;
   dynamic timestamp;
   dynamic trxId;
+  DateTime timetest;
 
   dynamic get getBlock => this.block;
 
@@ -41,5 +42,5 @@ class ListellipsenineItemModel {
   set setTrxId(trxId) => this.trxId = trxId;
 
   ListellipsenineItemModel(this.block, this.tipoOp, this.amount, this.memo,
-      this.from, this.to, this.timestamp, this.trxId);
+      this.from, this.to, this.timestamp, this.trxId, this.timetest);
 }

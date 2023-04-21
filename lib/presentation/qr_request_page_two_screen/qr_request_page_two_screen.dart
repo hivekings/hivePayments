@@ -41,7 +41,7 @@ class QrRequestPageTwoScreen extends GetWidget<QrRequestPageTwoController> {
                             Container(
                                 width: getSize(32.00),
                                 padding: getPadding(
-                                    left: 12, top: 5, right: 12, bottom: 5),
+                                    left: 5, top: 5, right: 5, bottom: 5),
                                 decoration: AppDecoration.txtOutlineRedA400
                                     .copyWith(
                                         borderRadius: BorderRadiusStyle
@@ -62,7 +62,7 @@ class QrRequestPageTwoScreen extends GetWidget<QrRequestPageTwoController> {
                                 width: getSize(32.00),
                                 margin: getMargin(left: 14),
                                 padding: getPadding(
-                                    left: 10, top: 5, right: 10, bottom: 5),
+                                    left: 5, top: 5, right: 5, bottom: 5),
                                 decoration: AppDecoration.txtFillRedA400
                                     .copyWith(
                                         borderRadius: BorderRadiusStyle
@@ -82,7 +82,7 @@ class QrRequestPageTwoScreen extends GetWidget<QrRequestPageTwoController> {
                                 width: getSize(32.00),
                                 margin: getMargin(left: 14),
                                 padding: getPadding(
-                                    left: 10, top: 5, right: 10, bottom: 5),
+                                    left: 5, top: 5, right: 5, bottom: 5),
                                 decoration: AppDecoration.txtOutlineBluegray900
                                     .copyWith(
                                         borderRadius: BorderRadiusStyle
@@ -129,7 +129,8 @@ class QrRequestPageTwoScreen extends GetWidget<QrRequestPageTwoController> {
   onTapContinue() {
     var data = {
       "quantity": controller.quantitydata.value,
-      "memo": controller.tEXTFIELDController.value.text
+      "memo": controller.tEXTFIELDController.value.text,
+      "currency": controller.currencyData
     };
     Get.toNamed(AppRoutes.qrRequestPagueThreeScreen, arguments: data);
   }

@@ -21,7 +21,7 @@ class AppbarTitle extends StatelessWidget {
         padding: margin ?? EdgeInsets.zero,
         child: Container(
           width: getHorizontalSize(
-            132.00,
+            432.00,
           ),
           child: Text(
             text,

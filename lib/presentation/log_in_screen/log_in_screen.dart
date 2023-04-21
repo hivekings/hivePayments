@@ -1,7 +1,9 @@
+import '../../widgets/custom_text_form_field.dart';
 import 'controller/log_in_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_payments/core/app_export.dart';
 import 'package:hive_payments/widgets/custom_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LogInScreen extends GetWidget<LogInController> {
   @override
@@ -117,11 +119,18 @@ class LogInScreen extends GetWidget<LogInController> {
                     ),
                   ),
                 ),
+                CustomTextFormField(
+                    width: 312,
+                    focusNode: FocusNode(),
+                    controller: controller.usernameTexfield,
+                    hintText: "@username",
+                    margin: getMargin(top: 20),
+                    textInputAction: TextInputAction.next),
                 CustomButton(
-                  onTap: () => {Get.toNamed(AppRoutes.homeScreen)},
+                  onTap: () => {logIn()},
                   height: 40,
                   width: 312,
-                  text: "msg_connect_with_keychain".tr,
+                  text: "Connect with user / password",
                   margin: getMargin(
                     top: 70,
                   ),
@@ -130,15 +139,21 @@ class LogInScreen extends GetWidget<LogInController> {
                   padding: getPadding(
                     top: 148,
                   ),
-                  child: Text(
-                    "lbl_need_help".tr,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.left,
-                    style: AppStyle.txtRobotoRomanRegular12.copyWith(
-                      letterSpacing: getHorizontalSize(
-                        0.10,
+                  child: GestureDetector(
+                    onTap: () async => {
+                      await launchUrl(
+                          Uri.parse("https://discord.gg/4zPAnfc8Hu"))
+                    },
+                    child: Text(
+                      "lbl_need_help".tr,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.left,
+                      style: AppStyle.txtRobotoRomanRegular12.copyWith(
+                        letterSpacing: getHorizontalSize(
+                          0.10,
+                        ),
+                        decoration: TextDecoration.underline,
                       ),
-                      decoration: TextDecoration.underline,
                     ),
                   ),
                 ),
@@ -148,5 +163,9 @@ class LogInScreen extends GetWidget<LogInController> {
         ),
       ),
     );
+  }
+
+  logIn() {
+    controller.r.click_login(controller.usernameTexfield.value.text);
   }
 }

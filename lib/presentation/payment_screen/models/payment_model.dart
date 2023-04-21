@@ -1,5 +1,5 @@
 class PaymentModel {
-  String? result;
+  Map<String, dynamic>? result;
 
-  PaymentModel({String? result});
+  PaymentModel({Map<String, dynamic>? result});
 }

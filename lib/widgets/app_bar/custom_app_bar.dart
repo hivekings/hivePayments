@@ -25,17 +25,19 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      elevation: 0,
-      toolbarHeight: height,
-      automaticallyImplyLeading: false,
-      backgroundColor: Colors.transparent,
-      leadingWidth: leadingWidth ?? 0,
-      leading: leading,
-      title: title,
-      titleSpacing: 0,
-      centerTitle: centerTitle ?? false,
-      actions: actions,
+    return SafeArea(
+      child: AppBar(
+        elevation: 0,
+        toolbarHeight: height,
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.transparent,
+        leadingWidth: leadingWidth ?? 0,
+        leading: leading,
+        title: title,
+        titleSpacing: 0,
+        centerTitle: centerTitle ?? false,
+        actions: actions,
+      ),
     );
   }
 

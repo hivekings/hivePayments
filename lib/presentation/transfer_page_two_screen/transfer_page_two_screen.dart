@@ -40,7 +40,7 @@ class TransferPageTwoScreen extends GetWidget<TransferPageTwoController> {
                             Container(
                                 width: getSize(32.00),
                                 padding: getPadding(
-                                    left: 12, top: 5, right: 12, bottom: 5),
+                                    left: 5, top: 5, right: 5, bottom: 5),
                                 decoration: AppDecoration.txtOutlineRedA400
                                     .copyWith(
                                         borderRadius: BorderRadiusStyle
@@ -61,7 +61,7 @@ class TransferPageTwoScreen extends GetWidget<TransferPageTwoController> {
                                 width: getSize(32.00),
                                 margin: getMargin(left: 14),
                                 padding: getPadding(
-                                    left: 10, top: 5, right: 10, bottom: 5),
+                                    left: 5, top: 5, right: 5, bottom: 5),
                                 decoration: AppDecoration.txtFillRedA400
                                     .copyWith(
                                         borderRadius: BorderRadiusStyle
@@ -81,7 +81,7 @@ class TransferPageTwoScreen extends GetWidget<TransferPageTwoController> {
                                 width: getSize(32.00),
                                 margin: getMargin(left: 14),
                                 padding: getPadding(
-                                    left: 10, top: 5, right: 10, bottom: 5),
+                                    left: 5, top: 5, right: 5, bottom: 5),
                                 decoration: AppDecoration.txtOutlineBluegray900
                                     .copyWith(
                                         borderRadius: BorderRadiusStyle
@@ -98,7 +98,8 @@ class TransferPageTwoScreen extends GetWidget<TransferPageTwoController> {
                               padding: getPadding(left: 24, top: 40),
                               child: Row(children: [
                                 CustomImageView(
-                                    imagePath: ImageConstant.imgEllipse44,
+                                    url:
+                                        "https://images.hive.blog/u/${controller.username}/avatar",
                                     height: getSize(42.00),
                                     width: getSize(42.00),
                                     radius: BorderRadius.circular(
@@ -112,7 +113,7 @@ class TransferPageTwoScreen extends GetWidget<TransferPageTwoController> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         children: [
-                                          Text("msg_wilde_sunglasses2".tr,
+                                          Text("${controller.username}",
                                               overflow: TextOverflow.ellipsis,
                                               textAlign: TextAlign.left,
                                               style: AppStyle
@@ -120,7 +121,7 @@ class TransferPageTwoScreen extends GetWidget<TransferPageTwoController> {
                                           Padding(
                                               padding: getPadding(top: 1),
                                               child: Text(
-                                                  "msg_wildesunglasses3".tr,
+                                                  "@${controller.username}",
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   textAlign: TextAlign.left,
@@ -150,65 +151,15 @@ class TransferPageTwoScreen extends GetWidget<TransferPageTwoController> {
                           text: "lbl_continue".tr,
                           margin: getMargin(top: 56),
                           onTap: onTapContinue),
-                      Container(
-                          width: size.width,
-                          margin: getMargin(top: 42, bottom: 5),
-                          padding: getPadding(top: 7, bottom: 7),
-                          decoration: AppDecoration.fillBluegray90001,
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                CustomIconButton(
-                                    height: 30,
-                                    width: 30,
-                                    variant:
-                                        IconButtonVariant.OutlineBlack90044,
-                                    shape: IconButtonShape.CircleBorder15,
-                                    padding: IconButtonPadding.PaddingAll3,
-                                    child: CustomImageView(
-                                        svgPath:
-                                            ImageConstant.imgArrowleftGray700)),
-                                Padding(
-                                    padding: getPadding(top: 5, bottom: 2),
-                                    child: Text("lbl_suggest".tr,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: AppStyle.txtRobotoRegular18)),
-                                Container(
-                                    height: getVerticalSize(22.00),
-                                    width: getHorizontalSize(1.00),
-                                    margin: getMargin(top: 4, bottom: 4),
-                                    decoration: BoxDecoration(
-                                        color: ColorConstant.blueGray800)),
-                                Padding(
-                                    padding: getPadding(top: 5, bottom: 2),
-                                    child: Text("lbl_suggest".tr,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: AppStyle.txtRobotoRegular18)),
-                                Container(
-                                    height: getVerticalSize(22.00),
-                                    width: getHorizontalSize(1.00),
-                                    margin: getMargin(top: 4, bottom: 4),
-                                    decoration: BoxDecoration(
-                                        color: ColorConstant.blueGray800)),
-                                Padding(
-                                    padding: getPadding(top: 5, bottom: 2),
-                                    child: Text("lbl_suggest".tr,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
-                                        style: AppStyle.txtRobotoRegular18)),
-                                CustomImageView(
-                                    svgPath: ImageConstant.imgUpload,
-                                    height: getSize(24.00),
-                                    width: getSize(24.00),
-                                    margin: getMargin(top: 3, bottom: 3))
-                              ]))
                     ]))));
   }
 
   onTapContinue() {
-    Get.toNamed(AppRoutes.transferPageThreeScreen);
+    var tx = {
+      "username": controller.username,
+      "memo": controller.tEXTFIELDController.value.text
+    };
+    Get.toNamed(AppRoutes.transferPageThreeScreen, arguments: tx);
   }
 
   onTapArrowleft7() {

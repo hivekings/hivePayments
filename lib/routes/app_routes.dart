@@ -2,6 +2,7 @@ import 'package:hive_payments/presentation/home_screen/home_screen.dart';
 import 'package:hive_payments/presentation/home_screen/binding/home_binding.dart';
 import 'package:hive_payments/presentation/log_in_screen/log_in_screen.dart';
 import 'package:hive_payments/presentation/log_in_screen/binding/log_in_binding.dart';
+import 'package:hive_payments/presentation/payment_screen/binding/paymentData_binding.dart';
 import 'package:hive_payments/presentation/qr_request_screen/qr_request_screen.dart';
 import 'package:hive_payments/presentation/qr_request_screen/binding/qr_request_binding.dart';
 import 'package:hive_payments/presentation/splash_screen/splash_screen.dart';
@@ -11,6 +12,7 @@ import 'package:hive_payments/presentation/qr_request_page_two_screen/binding/qr
 import 'package:hive_payments/presentation/qr_request_pague_three_screen/qr_request_pague_three_screen.dart';
 import 'package:hive_payments/presentation/qr_request_pague_three_screen/binding/qr_request_pague_three_binding.dart';
 import 'package:hive_payments/presentation/payment_screen/payment_screen.dart';
+import 'package:hive_payments/presentation/payment_screen/models/payment_screen_data.dart';
 import 'package:hive_payments/presentation/payment_screen/binding/payment_binding.dart';
 import 'package:hive_payments/presentation/receipt_screen/receipt_screen.dart';
 import 'package:hive_payments/presentation/receipt_screen/binding/receipt_binding.dart';
@@ -43,6 +45,8 @@ class AppRoutes {
       '/qr_request_pague_three_screen';
 
   static const String paymentScreen = '/payment_screen';
+
+  static const String paymentDataScreen = '/payment_screen_data';
 
   static const String receiptScreen = '/receipt_screen';
 
@@ -108,6 +112,13 @@ class AppRoutes {
       page: () => PaymentScreen(),
       bindings: [
         PaymentBinding(),
+      ],
+    ),
+    GetPage(
+      name: paymentDataScreen,
+      page: () => PaymentScreenData(),
+      bindings: [
+        PaymentDataBinding(),
       ],
     ),
     GetPage(

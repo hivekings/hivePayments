@@ -49,7 +49,7 @@ class TransferPageOneScreen extends GetWidget<TransferPageOneController> {
                                                 .txtCircleBorder16),
                                     child: Text("lbl_1".tr,
                                         overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
+                                        textAlign: TextAlign.center,
                                         style: AppStyle.txtRobotoRomanBold16)),
                                 Container(
                                     height: getVerticalSize(2.00),
@@ -68,7 +68,7 @@ class TransferPageOneScreen extends GetWidget<TransferPageOneController> {
                                                 .txtCircleBorder16),
                                     child: Text("lbl_2".tr,
                                         overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
+                                        textAlign: TextAlign.center,
                                         style: AppStyle
                                             .txtRobotoRomanBold16Bluegray900)),
                                 Container(
@@ -88,7 +88,7 @@ class TransferPageOneScreen extends GetWidget<TransferPageOneController> {
                                                 .txtCircleBorder16),
                                     child: Text("lbl_3".tr,
                                         overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.left,
+                                        textAlign: TextAlign.center,
                                         style: AppStyle
                                             .txtRobotoRomanBold16Bluegray900))
                               ])),

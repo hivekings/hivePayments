@@ -1,1 +1,3 @@
-class TransferModel {}
+class TransferModel {
+  List<dynamic> listhiveItemList = [];
+}
