@@ -66,7 +66,7 @@ class ListellipsethirtyeightItemWidget extends StatelessWidget {
         ),
         Padding(
           padding: getPadding(
-            bottom: 39,
+            bottom: 10,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,7 +80,7 @@ class ListellipsethirtyeightItemWidget extends StatelessWidget {
               ),
               Padding(
                 padding: getPadding(
-                  top: 8,
+                  top: 7,
                 ),
                 child: Text(
                   "${listellipsethirtyeightItemModelObj.value}",
